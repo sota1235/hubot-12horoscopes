@@ -1,0 +1,29 @@
+{
+  "name": "hubot-12horoscopes",
+  "private": false,
+  "version": "0.0.1",
+  "description": "Hubot script for 12 horoscopes (presented by Yahoo Japan).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:sota1235/hubot-12horoscopes.git"
+  },
+  "keywords": [
+    "hubot",
+    "12horoscopes"
+  ],
+  "author": "@sota1235",
+  "license": "ISC",
+  "dependencies": {
+    "request": "*",
+    "cheerio": "*",
+    "hubot": "*"
+  },
+  "bugs": {
+    "url": "https://github.com/sota1235/hubot-12horoscopes/issues"
+  },
+  "homepage": "https://github.com/sota1235/hubot-12horoscopes"
+}
