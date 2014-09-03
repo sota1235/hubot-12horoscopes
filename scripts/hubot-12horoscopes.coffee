@@ -101,9 +101,13 @@ module.exports = (robot) ->
       astro = ASTRO[getAstroFromDate(date)]
     else
       msg.send("#{month}月#{day}日なんて誕生日は存在しないっ！！！")
+      return
     who = msg.message.user.name
 
     msg.send "#{astro[1]}: @#{who}さんの今日の運勢"
     getFortuneData URL + astro[0], (data) ->
-      msg.send "総合得点：#{data[0]}"
-      msg.send data[1]
+      if data = 'undefined'
+        msg.send "情報を取得できませんでした..."
+      else
+        msg.send "総合得点：#{data[0]}"
+        msg.send data[1]
