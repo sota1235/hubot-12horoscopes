@@ -89,9 +89,8 @@ getFortuneData = (url, callback = ->) ->
     callback [point, text]
 
 module.exports = (robot) ->
-  robot.hear /HELLO$/i, (msg) ->
-    msg.send "hello!"
-    msg.send "Thenk"
+  robot.respond /占い$/, (msg) ->
+    msg.send "日付をMMDDもしくはM月D日形式で教えてください"
 
   robot.respond /(占い)\s+(\d+月\d+日$|\d{4}$)/i, (msg) ->
     date = parseDate(msg.match[2])
