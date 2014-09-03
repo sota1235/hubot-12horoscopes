@@ -12,7 +12,7 @@ request = require 'request'
 cheerio = require 'cheerio'
 iconv = require 'iconv'
 
-# [early month, dat, late month, day] : URL
+# [url_path, 星座名]
 ASTRO = [
   ["aries", "おひつじ座"]
   ["taurus", "おうし座"]
@@ -41,7 +41,6 @@ parseDate = (date, callback = ->) ->
   return [month, day]
 
 ## 日時から星座のインデックスをreturn
-## TODO:汚すぎ
 getAstroFromDate = (month, day, callback = ->) ->
   month = parseInt(month)
   day = parseInt(day)
@@ -73,7 +72,7 @@ getAstroFromDate = (month, day, callback = ->) ->
     else
       return false
 
-## Yahooの占いサイトをスクレイピング
+## Yahooの占いサイトからスクレイピング
 ## http://fortune.yahoo.co.jp/12astro/index.html
 getFortuneData = (url, callback = ->) ->
   request {url: url, encoding: null},  (err, res, body) ->
