@@ -20,6 +20,7 @@
   "dependencies": {
     "request": "*",
     "cheerio": "*",
+    "iconv": "*",
     "hubot": "*"
   },
   "bugs": {
