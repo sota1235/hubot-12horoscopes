@@ -31,7 +31,7 @@ ASTRO = [
 URL = "http://fortune.yahoo.co.jp/12astro/"
 
 ## 日時を整形
-parseDate = (date, callback = ->) ->
+parseDate = (date) ->
   if /^\d+月\d+日/.test date
     month = date.match(/^\d+/)
     day = date.match(/\d+月(\d+)日/)[1]
@@ -41,7 +41,7 @@ parseDate = (date, callback = ->) ->
   return [month, day]
 
 ## 日時から星座のインデックスをreturn
-getAstroFromDate = (month, day, callback = ->) ->
+getAstroFromDate = (month, day) ->
   month = parseInt(month)
   day = parseInt(day)
   switch month
@@ -77,7 +77,7 @@ getAstroFromDate = (month, day, callback = ->) ->
 getFortuneData = (url, callback = ->) ->
   request {url: url, encoding: null},  (err, res, body) ->
     if err
-      callback err
+      callback err, null
       return
     conv = new iconv.Iconv('euc-jp', 'UTF-8//TRANSLIT//IGNORE')
     body = conv.convert(body)
@@ -85,7 +85,7 @@ getFortuneData = (url, callback = ->) ->
     b = cheerio.load($('div .bg01-03').html())
     point = b('p').text()
     text = b('dd').text()
-    callback [point, text]
+    callback null, [point, text]
 
 module.exports = (robot) ->
   robot.respond /占い$/i, (msg) ->
@@ -95,17 +95,21 @@ module.exports = (robot) ->
     date = parseDate(msg.match[2])
     month = date[0]
     day = date[1]
-    if getAstroFromDate(month, day)
-      astro = ASTRO[getAstroFromDate(date)]
+    who = "@" + msg.message.user.name
+    if getAstroFromDate month, day
+      astro = ASTRO[getAstroFromDate month, day]
     else
       msg.send("#{month}月#{day}日なんて誕生日は存在しないっ！！！")
       return
-    who = msg.message.user.name
 
-    msg.send "#{astro[1]}: @#{who}さんの今日の運勢"
-    getFortuneData URL + astro[0], (data) ->
+    msg.send "情報を取得中..."
+    getFortuneData URL + astro[0], (err, data) ->
+      if err
+        msg.send err
+        return
       if data = 'undefined'
         msg.send "情報を取得できませんでした..."
       else
+        msg.send "#{astro[1]}: #{who}さんの今日の運勢"
         msg.send "総合得点：#{data[0]}"
         msg.send data[1]
