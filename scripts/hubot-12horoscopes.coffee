@@ -107,7 +107,7 @@ module.exports = (robot) ->
       if err
         msg.send "Error: " + err
         return
-      if point = 'undefined'
+      if point == 'undefined'
         msg.send "情報を取得できませんでした..."
       else
         msg.send "#{astro[1]}: #{who}さんの今日の運勢"
