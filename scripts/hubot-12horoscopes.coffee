@@ -77,7 +77,7 @@ getAstroFromDate = (month, day) ->
 getFortuneData = (url, callback = ->) ->
   request {url: url, encoding: null},  (err, res, body) ->
     if err
-      callback err, null
+      callback err
       return
     conv = new iconv.Iconv('euc-jp', 'UTF-8//TRANSLIT//IGNORE')
     body = conv.convert(body)
@@ -85,7 +85,7 @@ getFortuneData = (url, callback = ->) ->
     b = cheerio.load($('div .bg01-03').html())
     point = b('p').text()
     text = b('dd').text()
-    callback null, [point, text]
+    callback null, point, text
 
 module.exports = (robot) ->
   robot.respond /占い$/i, (msg) ->
@@ -103,13 +103,13 @@ module.exports = (robot) ->
       return
 
     msg.send "情報を取得中..."
-    getFortuneData URL + astro[0], (err, data) ->
+    getFortuneData URL + astro[0], (err, point, text) ->
       if err
-        msg.send err
+        msg.send "Error: " + err
         return
-      if data = 'undefined'
+      if point = 'undefined'
         msg.send "情報を取得できませんでした..."
       else
         msg.send "#{astro[1]}: #{who}さんの今日の運勢"
-        msg.send "総合得点：#{data[0]}"
-        msg.send data[1]
+        msg.send "総合得点：#{point}"
+        msg.send text
