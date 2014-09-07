@@ -91,7 +91,11 @@ module.exports = (robot) ->
   robot.respond /占い$/i, (msg) ->
     msg.send "日付をMMDDもしくはM月D日形式で教えてください"
 
-  robot.respond /(占い)\s+(\d+月\d+日$|\d{4}$)/i, (msg) ->
+  robot.respond /(占い)\s+(.+)\s+/i, (msg) ->
+    if not /\d+月\d$|\d{4}$/i.test msg.match[2]
+      msg.send "'hubot 占い MMDD' もしくは 'hubot 占い M月D日'で入力してください"
+      return
+
     date = parseDate(msg.match[2])
     month = date[0]
     day = date[1]
@@ -99,7 +103,7 @@ module.exports = (robot) ->
     if getAstroFromDate month, day
       astro = ASTRO[getAstroFromDate month, day]
     else
-      msg.send("#{month}月#{day}日なんて誕生日は存在しないっ！！！")
+      msg.send "#{month}月#{day}日なんて誕生日は存在しないっ！！！"
       return
 
     msg.send "情報を取得中..."
