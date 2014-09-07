@@ -92,7 +92,6 @@ module.exports = (robot) ->
     msg.send "日付をMMDDもしくはM月D日形式で教えてください"
 
   robot.respond /(占い)\s+(.+)/i, (msg) ->
-    msg.send msg.match[2]
     if not /^\d+月\d$|^\d{4}$/i.test msg.match[2]
       msg.send "'hubot 占い MMDD' もしくは 'hubot 占い M月D日'で入力してください"
       return
