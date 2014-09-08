@@ -113,6 +113,9 @@ module.exports = (robot) ->
       if point == 'undefined'
         msg.send "情報を取得できませんでした..."
       else
-        msg.send "#{astro[1]}: #{who}さんの今日の運勢"
-        msg.send "総合得点：#{point}"
-        msg.send text
+        msgs = [
+          "#{astro[1]}: #{who}さんの今日の運勢"
+          "総合得点：#{point}"
+          text
+        ]
+        msg.send msgs.join '\n'
