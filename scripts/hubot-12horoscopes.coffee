@@ -38,12 +38,13 @@ parseDate = (date) ->
   else
     month = date.slice(0, 2)
     day = date.slice(2, 4)
-  return [month, day]
+  return [parseInt(month), parseInt(day)]
 
 ## 日時から星座のインデックスをreturn
 getAstroFromDate = (month, day) ->
-  month = parseInt(month)
-  day = parseInt(day)
+  date = new Date('2000', month - 1, day)
+  if date.getMonth() + 1 != month or date.getDate() != day
+    return false
   switch month
     when 3
       return if day >= 21 then 0 else 11
@@ -69,8 +70,6 @@ getAstroFromDate = (month, day) ->
       return if day >= 20 then 10 else 9
     when 2
       return if day >= 19 then 11 else 10
-    else
-      return false
 
 ## Yahooの占いサイトからスクレイピング
 ## http://fortune.yahoo.co.jp/12astro/index.html
