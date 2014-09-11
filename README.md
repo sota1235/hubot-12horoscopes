@@ -1,6 +1,8 @@
 hubot-12horoscopes
 ====
 
+[![npm-version][npm-badge]][npm]
+
 占い結果を返してくれるHubot scriptです。
 
 ## Description
