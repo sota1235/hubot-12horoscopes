@@ -26,7 +26,8 @@
   "devDependencies": {
     "hubot": "^2.7.5",
     "coffee-script": "^1.7.1",
-    "mocha": "^1.21.4"
+    "mocha": "^1.21.4",
+    "assert": "^1.1.2"
   },
   "bugs": {
     "url": "https://github.com/sota1235/hubot-12horoscopes/issues"
