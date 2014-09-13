@@ -2,7 +2,7 @@ assert = require 'assert'
 path = require 'path'
 hubot_script = require path.resolve '.', 'scripts', 'hubot-12horoscopes.coffee'
 
-describe 'Hubot script', ->
+describe 'hubot-12horoscopes', ->
   before (done) ->
     console.log '[describe] before test'
     done()
@@ -48,3 +48,5 @@ describe 'Hubot script', ->
         for num in val
           assert.equal key, hubot_script.getAstroFromDate num[0], num[1]
       done()
+
+  describe 'getFortuneData()', (done) ->
