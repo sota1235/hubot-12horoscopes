@@ -48,5 +48,3 @@ describe 'hubot-12horoscopes', ->
         for num in val
           assert.equal key, hubot_script.getAstroFromDate num[0], num[1]
       done()
-
-  describe 'getFortuneData()', (done) ->
