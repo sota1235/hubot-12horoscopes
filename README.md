@@ -1,8 +1,8 @@
 hubot-12horoscopes
 ====
 
-[![npm-version][npm-badge]][npm]
 [![Build Status](https://travis-ci.org/sota1235/hubot-12horoscopes.svg)](https://travis-ci.org/sota1235/hubot-12horoscopes)
+[![NPM version](https://badge.fury.io/js/stylestats.svg)](http://badge.fury.io/js/stylestats)
 
 占い結果を返してくれるHubot scriptです。
 
