@@ -41,3 +41,7 @@ hubot 占い 0301
 ## Author
 
 [@sota1235](https://github.com/sota1235)
+
+## LICENSE
+
+This software is released under the MIT License, see LICENSE.txt.

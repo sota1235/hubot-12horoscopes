@@ -16,7 +16,7 @@
     "12horoscopes"
   ],
   "author": "@sota1235",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "request": "*",
     "cheerio": "*",
