@@ -44,7 +44,7 @@ parseDate = (date) ->
 getAstroFromDate = (month, day) ->
   date = new Date('2000', month - 1, day)
   if date.getMonth() + 1 != month or date.getDate() != day
-    return false
+    return 'invalid date'
   switch month
     when 3
       return if day >= 21 then 0 else 11
@@ -91,7 +91,7 @@ module.exports = (robot) ->
     msg.send "日付をMMDDもしくはM月D日形式で教えてください"
 
   robot.respond /(占い)\s+(.+)/i, (msg) ->
-    if not /^\d+月\d$|^\d{4}$/i.test msg.match[2]
+    if not /^\d+月\d+日$|^\d{4}$/i.test msg.match[2]
       msg.send "'hubot 占い MMDD' もしくは 'hubot 占い M月D日'で入力してください"
       return
 
@@ -99,13 +99,13 @@ module.exports = (robot) ->
     month = date[0]
     day = date[1]
     who = "@" + msg.message.user.name
-    if getAstroFromDate month, day
+
+    if getAstroFromDate month, day != 'invalid date'
       astro = ASTRO[getAstroFromDate month, day]
     else
       msg.send "#{month}月#{day}日なんて誕生日は存在しないっ！！！"
       return
 
-    msg.send "情報を取得中..."
     getFortuneData URL + astro[0], (err, point, text) ->
       if err
         msg.send "Error: " + err
